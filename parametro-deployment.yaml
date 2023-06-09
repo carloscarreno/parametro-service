@@ -19,7 +19,7 @@ spec:
         app: parametro
     spec:
       containers:
-      - image: ccarrenovi/parametro-service:v1
+      - image: ccarrenovi/parametro-service:v4
         name: parametro
         ports:
         - name: http
