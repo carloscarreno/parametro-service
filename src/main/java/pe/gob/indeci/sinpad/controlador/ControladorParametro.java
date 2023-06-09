@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -53,9 +54,15 @@ public class ControladorParametro {
             .body(parametroPersistente);
 	}
 	
-	@PutMapping("/actualizar/{p}")
-	public Parametro actualizar(@PathVariable Parametro p) {
-		return servicio.update(p);
+	@PutMapping(value = "/actualizar",
+	        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+	        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	public ResponseEntity<Parametro> actualizar(@RequestBody Parametro p) {
+		Parametro parametroPersistente = servicio.update(p);
+		return ResponseEntity
+	            .created(URI
+	                     .create(String.format("/mostrar/%s", parametroPersistente.getId())))
+	            .body(parametroPersistente);
 	}
 	
 }
