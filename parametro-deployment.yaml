@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: parametro-deploy
+  namespace: default
+  labels:
+    app: parametro
+spec:
+  selector:
+    matchLabels: 
+      app: parametro
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: parametro
+    spec:
+      containers:
+      - image: ccarrenovi/parametro-service:v1
+        name: parametro
+        ports:
+        - name: http
+          containerPort: 8079
