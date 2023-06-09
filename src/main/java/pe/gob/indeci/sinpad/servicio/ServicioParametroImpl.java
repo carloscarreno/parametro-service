@@ -40,8 +40,8 @@ public class ServicioParametroImpl implements ServicioParametro {
 	@Transactional(readOnly = false)
 	public Parametro update(Parametro o) {
 		delete(o.getId());
-		save(o);
-		return o;
+		Parametro parametro = save(o);
+		return parametro;
 	}
 
 	@Override
